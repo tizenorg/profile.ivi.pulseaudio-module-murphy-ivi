@@ -1,3 +1,6 @@
+* Fri Jun 29 22:14:04 UTC 2012 - tracy.graydon@intel.com
+- Fixed build dep for libdbus-devel. Removed that and added dbus-libs to fix broken package build post forked package cleanup. 
+
  * Mon Jun 25 2012 Janos Kovacs <janos.kovacs@intel.com> - 0.2.2
  - Second release.
 

@@ -9,7 +9,8 @@ Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: pkgconfig(pulseaudio-module-devel)
 BuildRequires: pkgconfig(libpulse)
-BuildRequires: libdbus-devel
+#BuildRequires: libdbus-devel
+BuildRequires: dbus-libs
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: libtool-ltdl-devel
 
