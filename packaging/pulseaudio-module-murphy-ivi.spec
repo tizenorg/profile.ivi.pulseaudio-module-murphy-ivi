@@ -11,6 +11,7 @@ BuildRequires: pkgconfig(pulseaudio-module-devel)
 BuildRequires: pkgconfig(libpulse)
 #BuildRequires: libdbus-devel
 BuildRequires: dbus-libs
+BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: libtool-ltdl-devel
 
