@@ -1,4 +1,3 @@
-
 routing_group {
     name = "default",
     node_type = node.output,
@@ -56,7 +55,7 @@ application_class {
     route = {
         output = routing_group.default_output
     },
-    roles = { navigator = {0, "autorelease", "mandatory", "shared"} }
+    roles = { navigator = no_resource }
 }
 
 application_class {
@@ -66,7 +65,7 @@ application_class {
     route = {
         output = routing_group.default_output
     },
-    roles = { game = {0, "mandatory", "exclusive"} }
+    roles = { game = no_resource }
 }
 
 application_class {
@@ -76,7 +75,7 @@ application_class {
     route = {
         output = routing_group.default_output
     },
-    roles = { radio = {1, "mandatory", "exclusive"} },
+    roles = { radio = no_resource },
 }
 
 application_class {
@@ -86,9 +85,9 @@ application_class {
     route = {
         output = routing_group.default_output
     },
-    roles = { music   = {0, "mandatory", "exclusive"},
-              video   = {0, "mandatory", "exclusive"},
-	      test    = {0, "mandatory", "exclusive"}
+    roles = { music   = no_resource,
+              video   = no_resource,
+	      test    = no_resource
     }
 }
 
@@ -99,7 +98,7 @@ application_class {
     route = {
         output = routing_group.default_output
     },
-    roles = { browser = {0, "mandatory", "shared"} }
+    roles = { browser = no_resource }
 }
 
 
