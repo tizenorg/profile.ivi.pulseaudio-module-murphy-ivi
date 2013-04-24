@@ -323,6 +323,8 @@ pa_bool_t pa_classify_multiplex_stream(mir_node *node)
 
     pa_assert(node);
 
+    return FALSE;
+
     if (node->implement == mir_stream && node->direction == mir_input) {
         class = node->type;
 
