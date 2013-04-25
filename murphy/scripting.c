@@ -1,5 +1,5 @@
 /*
- * module-murphy-ivi -- PulseAudio module for providing audio routing support
+ * Module-murphy-ivi -- PulseAudio module for providing audio routing support
  * Copyright (c) 2012, Intel Corporation.
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -699,7 +699,7 @@ static int import_link(lua_State *L)
         }
     }
 
-    pa_log("userdata: type:%d", col->type);
+    pa_log_debug("userdata: type:%d", col->type);
 
     lua_pushlightuserdata(L, col);
 
