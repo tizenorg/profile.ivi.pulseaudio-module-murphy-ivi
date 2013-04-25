@@ -2118,8 +2118,6 @@ static rset_hash *rset_hashmap_put(struct userdata *u,
     rh->nodes[i+0] = node;
     rh->nodes[i+1] = NULL;
 
-    pa_log("    depth: %u", rh->nnode);
-
     return rh;
 }
 
@@ -2156,8 +2154,6 @@ static int rset_hashmap_remove(struct userdata *u,
     rif = &murphyif->resource;
 
     if ((rh = pa_hashmap_get(rif->nodes.rsetid, rsetid))) {
-
-        pa_log("    depth: %u", rh->nnode);
 
         for (i = 0;  i < rh->nnode;  i++) {
             if (node == rh->nodes[i]) {
