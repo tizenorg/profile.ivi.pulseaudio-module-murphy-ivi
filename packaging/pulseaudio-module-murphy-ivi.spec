@@ -2,7 +2,7 @@ Summary: Pulseaudio module for enforcing policy decisions in the audio domain
 Name: pulseaudio-module-murphy-ivi
 Version:  0.9.11
 Release: 0
-License: LGPLv2.1
+License: LGPL-2.1
 Group: System Environment/Daemons
 URL: https://github.com/otcshare/pulseaudio-module-murphy-ivi
 Source0: %{name}-%{version}.tar.gz
@@ -16,6 +16,9 @@ BuildRequires: pkgconfig(lua)
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: libtool-ltdl-devel
+Buildrequires: pkgconfig(json)
+BuildRequires: config(pulseaudio)
+BuildRequires: murphy-pulse
 Requires: pulseaudio
 Conflicts: pulseaudio-module-combine-sink
 Conflicts: pulseaudio-module-augment-properties
@@ -57,5 +60,5 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_libdir}/pulse-*/modules/module-*.so
-%{_sysconfdir}/dbus-1/system.d/pulseaudio-murphy-ivi.conf
-%{_sysconfdir}/pulse/murphy-ivi.lua
+%config %{_sysconfdir}/dbus-1/system.d/pulseaudio-murphy-ivi.conf
+%config %{_sysconfdir}/pulse/murphy-ivi.lua

@@ -154,7 +154,7 @@ static void sink_input_block(pa_sink_input *sinp, pa_bool_t block)
             sinp->flags |= flag_mask;
     }
 
-    pa_sink_input_cork_internal(sinp, block);
+    pa_sink_input_cork(sinp, block);
 
     if (sinp->send_event) {
         if (block)

@@ -1,3 +1,6 @@
+* Tue Jun 25 18:48:43 UTC 2013 - tracy.graydon@intel.com
+- Add buildrequires to fix package build complaints about pulsecore-2.1, protocol-native, murphy-pulse, json 
+
 * Tue Apr 16 14:21:03 EEST 2013 Jaska Uimonen <jaska.uimonen@intel.com> - 0.9.11
 - release: releasing 0.9.11...
 - fix some crashes
