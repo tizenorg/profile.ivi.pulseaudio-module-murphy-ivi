@@ -1,0 +1,8 @@
+Change-Id: I09b9800016b5b25401485bb1e6ff66c46402a3e6
+Code-Review+2: Jaska Uimonen <jaska.uimonen@intel.com>
+Verified+1: Jaska Uimonen <jaska.uimonen@intel.com>
+Submitted-by: Jaska Uimonen <jaska.uimonen@intel.com>
+Submitted-at: Wed, 26 Jun 2013 23:08:35 -0700
+Reviewed-on: https://review.tizen.org/gerrit/4290
+Project: profile/ivi/pulseaudio-module-murphy-ivi
+Branch: refs/heads/tizen
