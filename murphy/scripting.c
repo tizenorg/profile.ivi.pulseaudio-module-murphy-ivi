@@ -28,10 +28,12 @@
 
 #include <murphy/common/macros.h>
 #include <murphy/common/mm.h>
+#include <murphy/common/list.h>
 #include <murphy/core/lua-utils/object.h>
 #include <murphy/core/lua-utils/funcbridge.h>
 #include <murphy/core/lua-utils/strarray.h>
 #include <murphy/core/lua-utils/funcbridge.h>
+#include <murphy/core/lua-utils/include.h>
 #include <murphy/domain-control/client.h>
 #include <murphy/resource/data-types.h>
 #include <murphy/resource/protocol.h>
@@ -329,6 +331,7 @@ static void setup_murphy_interface(struct userdata *);
 static char *comma_separated_list(mrp_lua_strarray_t *, char *, int);
 
 static bool define_constants(lua_State *);
+static bool register_functions(lua_State *);
 static bool register_methods(lua_State *);
 
 static void *alloc(void *, void *, size_t, size_t);
@@ -463,6 +466,8 @@ MRP_LUA_CLASS_DEF_SIMPLE (
 );
 
 
+static MRP_LIST_HOOK(included);
+
 pa_scripting *pa_scripting_init(struct userdata *u)
 {
     pa_scripting *scripting;
@@ -490,6 +495,7 @@ pa_scripting *pa_scripting_init(struct userdata *u)
         array_class_create(L);
 
         define_constants(L);
+        register_functions(L);
         register_methods(L);
 
         lua_pushlightuserdata(L, u);
@@ -3136,6 +3142,87 @@ static bool define_constants(lua_State *L)
     lua_setglobal(L, "no_resource");
 
     return success;
+}
+
+
+static int include_lua(lua_State *L, const char *file, int try, int once)
+{
+    mrp_list_hook_t *files = once ? &included : NULL;
+    const char      *dirs[2];
+
+    dirs[0] = "/etc/pulse";
+    dirs[1] = NULL;
+
+    if (mrp_lua_include_file(L, file, &dirs[0], files) == 0 || try)
+        return 0;
+    else
+        return -1;
+}
+
+
+static int include_lua_file(lua_State *L, int try, int once)
+{
+    const char *file;
+    int         narg, status;
+
+    narg = lua_gettop(L);
+
+    if (narg == 1) {
+        if (lua_type(L, -1) != LUA_TSTRING)
+            return luaL_error(L, "expecting string file name for inclusion");
+    }
+    else
+        return luaL_error(L, "expecting <string> file name for inclusion");
+
+    file = lua_tostring(L, -1);
+
+    status = include_lua(L, file, try, once);
+    lua_settop(L, 0);
+
+    if (status == 0 || try)
+        return 0;
+    else
+        return luaL_error(L, "failed to include%s Lua file '%s'.",
+                         once ? "_once" : "", file);
+}
+
+
+static int try_luafile(lua_State *L)
+{
+    return include_lua_file(L, TRUE, FALSE);
+}
+
+
+static int try_once_luafile(lua_State *L)
+{
+    return include_lua_file(L, TRUE, TRUE);
+}
+
+
+static int include_luafile(lua_State *L)
+{
+    return include_lua_file(L, FALSE, FALSE);
+}
+
+
+static int include_once_luafile(lua_State *L)
+{
+    return include_lua_file(L, FALSE, TRUE);
+}
+
+
+static bool register_functions(lua_State *L)
+{
+    static luaL_reg functions[] = {
+        { "include"         , include_luafile      },
+        { "include_once"    , include_once_luafile },
+        { "try_include"     , try_luafile          },
+        { "try_include_once", try_once_luafile     },
+    };
+
+    luaL_openlib(L, "murphy", functions, 0);
+
+    return true;
 }
 
 
