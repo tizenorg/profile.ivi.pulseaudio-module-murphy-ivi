@@ -179,9 +179,10 @@ static void sink_input_block(struct userdata *u,
         }
         else {
             oldvol = pa_fader_get_volume(u, sinp);
-            pa_fader_set_volume(u, sinp, 0);
-            pa_fader_ramp_volume(u, sinp, oldvol);
-            pa_sink_input_remove_volume_factor(sinp, "internal_mute");
+            if (pa_sink_input_remove_volume_factor(sinp, "internal_mute") == 0) {
+                pa_fader_set_volume(u, sinp, 0);
+                pa_fader_ramp_volume(u, sinp, oldvol);
+            }            
         }
     }
     else {
