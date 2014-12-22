@@ -252,7 +252,7 @@ bool mir_router_assign_class_to_rtgroup(struct userdata *u,
 
     if (class < 0 || class >= router->maplen) {
         pa_log_debug("can't assign class (%d) to  routing group '%s': "
-                     "class id is out of range (0 - %d)",
+                     "class id is out of range (0 - %zu)",
                      class, rtgrpnam, router->maplen);
         return false;
     }
@@ -832,7 +832,7 @@ static mir_node *find_default_route(struct userdata *u,
     mir_rtentry   *rte;
 
     if (class < 0 || class > router->maplen) {
-        pa_log_debug("can't route '%s': class %d is out of range (0 - %d)",
+        pa_log_debug("can't route '%s': class %d is out of range (0 - %zu)",
                      start->amname, class, router->maplen);
         return NULL;
     }
