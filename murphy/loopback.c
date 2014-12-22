@@ -99,7 +99,7 @@ pa_loopnode *pa_loopback_create(pa_loopback      *loopback,
                      sink_index);
         return NULL;
     }
-            
+
 
     if (type == PA_LOOPBACK_SOURCE) {
         snprintf(args, sizeof(args), "source=\"%s\" sink=\"%s\" "
@@ -111,7 +111,7 @@ pa_loopnode *pa_loopback_create(pa_loopback      *loopback,
                  PA_PROP_MEDIA_ROLE, media_role,
                  PA_PROP_NODE_INDEX, node_index,
                  PA_PROP_RESOURCE_PRIORITY, resource_priority,
-                 PA_PROP_RESOURCE_SET_FLAGS, resource_set_flags, 
+                 PA_PROP_RESOURCE_SET_FLAGS, resource_set_flags,
                  PA_PROP_RESOURCE_AUDIO_FLAGS, resource_audio_flags,
                  PA_PROP_MEDIA_ROLE, media_role,
                  PA_PROP_NODE_INDEX, node_index);
@@ -128,7 +128,7 @@ pa_loopnode *pa_loopback_create(pa_loopback      *loopback,
                  PA_PROP_MEDIA_ROLE, media_role,
                  PA_PROP_NODE_INDEX, node_index,
                  PA_PROP_RESOURCE_PRIORITY, resource_priority,
-                 PA_PROP_RESOURCE_SET_FLAGS, resource_set_flags, 
+                 PA_PROP_RESOURCE_SET_FLAGS, resource_set_flags,
                  PA_PROP_RESOURCE_AUDIO_FLAGS, resource_audio_flags);
     }
 
@@ -242,7 +242,7 @@ int pa_loopback_print(pa_loopnode *loop, char *buf, int len)
         p += snprintf(p, (size_t)(e-p), "module %u, sink_input %u",
                       loop->module_index, loop->sink_input_index);
     }
-    
+
     return p - buf;
 }
 
@@ -274,4 +274,3 @@ static int get_latency(const char *media_role)
  * End:
  *
  */
-

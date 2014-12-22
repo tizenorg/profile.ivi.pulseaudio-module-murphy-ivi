@@ -124,7 +124,7 @@ bool mir_switch_setup_link(struct userdata *u,
 
             case mir_stream:
                 pa_assert(from);
-                
+
                 switch (from->implement) {
                 case mir_stream:
                     pa_log_debug("routing between streams is not implemented");
@@ -176,7 +176,7 @@ bool mir_switch_setup_link(struct userdata *u,
         else {
             /* default input preroute */
             pa_assert(from && from->implement == mir_device);
-            
+
             return setup_device_input(u, from) != NULL;
         }
     }
@@ -204,27 +204,27 @@ bool mir_switch_teardown_link(struct userdata *u,
 
     case mir_stream:
         switch (to->implement) {
-            
+
         case mir_stream: /* stream -> stream */
             pa_log_debug("routing to streams is not implemented yet");
             break;
-            
+
         case mir_device: /* stream -> device */
             if (!teardown_explicit_stream2dev_link(u, from, to))
                 return false;
             break;
-            
+
         default:
             pa_log("%s: can't teardown link: invalid sink node "
                    "implement", __FILE__);
             return false;
         }
         break;
-        
+
     case mir_device: /* device -> stream | device->device */
         pa_log_debug("input device routing is not implemented yet");
         break;
-        
+
     default:
         pa_log("%s: can't teardown link: invalid source node "
                "implement", __FILE__);
@@ -448,7 +448,7 @@ static bool setup_default_stream2dev_link(struct userdata *u,
                          mux->module_index);
             return true;        /* the routing is a success */
         }
-            
+
         if (sinp) {
             pa_log_debug("multiplex route: sink-input.%d -> (sink.%d - "
                          "sink-input.%d) -> sink.%d", from->paidx,
@@ -558,7 +558,7 @@ static bool setup_default_dev2dev_link(struct userdata *u,
                          mux->module_index);
             return true;        /* the routing is a success */
         }
-            
+
         if (sinp) {
             pa_log_debug("multiplex route: source.%d -> "
                          "(source-output - sink-input %d) -> (sink.%d - "
@@ -570,7 +570,7 @@ static bool setup_default_dev2dev_link(struct userdata *u,
             pa_log_debug("multiplex route: source.%d -> "
                          "(source-output - sink-input.%d) -> (sink.%d - "
                          "sink-input) -> sink.%d", from->paidx,
-                         loop->sink_input_index, 
+                         loop->sink_input_index,
                          mux->sink_index, sink->index);
         }
 
@@ -602,7 +602,7 @@ static pa_source *setup_device_input(struct userdata *u, mir_node *node)
 {
     pa_core *core;
     pa_source *source;
-    
+
     pa_assert(u);
     pa_assert(node);
     pa_assert_se((core = u->core));
@@ -678,7 +678,7 @@ static bool set_profile(struct userdata *u, mir_node *node)
         }
 
         pa_assert_se(prof = card->active_profile);
-    
+
         if (!pa_streq(node->pacard.profile, prof->name)) {
             pa_log_debug("changing profile '%s' => '%s'",
                          prof->name, node->pacard.profile);
@@ -694,7 +694,7 @@ static bool set_profile(struct userdata *u, mir_node *node)
             if ((prof = pa_hashmap_get(card->profiles, node->pacard.profile)) != NULL)
                 pa_card_set_profile(card, prof, false);
 
-            u->state.profile = NULL;            
+            u->state.profile = NULL;
         }
     }
 
@@ -729,13 +729,13 @@ static bool set_port(struct userdata *u, mir_node *node)
 
     if (node->direction == mir_input) {
         source = pa_namereg_get(core, node->paname, PA_NAMEREG_SOURCE);
-        
+
         if (!(data = source)) {
             pa_log("can't set port for '%s': source not found",
                    node->paname);
             return false;
         }
-        
+
         if ((port = source->active_port) && pa_streq(node->paport, port->name))
             return true;
 
@@ -747,7 +747,7 @@ static bool set_port(struct userdata *u, mir_node *node)
 
     if (node->direction == mir_output) {
         sink = pa_namereg_get(core, node->paname, PA_NAMEREG_SINK);
-        
+
         if (!(data = sink)) {
             pa_log("can't set port for '%s': sink not found",
                    node->paname);

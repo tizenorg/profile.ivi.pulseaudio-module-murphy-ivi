@@ -179,7 +179,7 @@ pa_tracker *pa_tracker_init(struct userdata *u)
                        hooks + PA_CORE_HOOK_SINK_INPUT_UNLINK,
                        PA_HOOK_LATE, sink_input_unlink, u
                    );
-    
+
     /* source-output */
     sout->neew   = pa_hook_connect(
                        hooks + PA_CORE_HOOK_SOURCE_OUTPUT_NEW,
@@ -193,7 +193,7 @@ pa_tracker *pa_tracker_init(struct userdata *u)
                        hooks + PA_CORE_HOOK_SOURCE_OUTPUT_UNLINK,
                        PA_HOOK_LATE, source_output_unlink, u
                    );
-    
+
     return tracker;
 }
 
@@ -215,24 +215,24 @@ void pa_tracker_done(struct userdata *u)
 
         port = &tracker->port;
         pa_hook_slot_free(port->avail);
-        
+
         sink = &tracker->sink;
         pa_hook_slot_free(sink->put);
         pa_hook_slot_free(sink->unlink);
         pa_hook_slot_free(sink->portchg);
-        
+
         source = &tracker->source;
         pa_hook_slot_free(source->put);
         pa_hook_slot_free(source->unlink);
         pa_hook_slot_free(source->portchg);
-        
+
         sinp = &tracker->sink_input;
         pa_hook_slot_free(sinp->neew);
         pa_hook_slot_free(sinp->put);
         pa_hook_slot_free(sinp->unlink);
 
         pa_xfree(tracker);
-        
+
         u->tracker = NULL;
     }
 }
@@ -547,4 +547,3 @@ static pa_hook_result_t source_output_unlink(void *hook_data,
  * End:
  *
  */
-

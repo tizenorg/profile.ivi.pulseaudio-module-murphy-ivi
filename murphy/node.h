@@ -43,7 +43,7 @@ struct pa_nodeset_map {
     mir_node_type      type;
     const char        *role;
     pa_nodeset_resdef *resdef;
-}; 
+};
 
 struct pa_node_card {
     uint32_t  index;

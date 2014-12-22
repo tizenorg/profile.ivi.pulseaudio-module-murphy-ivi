@@ -95,7 +95,7 @@ typedef struct pa_resource_stream_entry  pa_resource_stream_entry;
 //typedef enum   mir_implement            mir_implement;
 //typedef enum   mir_location             mir_location;
 //typedef enum   mir_node_type            mir_node_type;
-//typedef enum   mir_privacy              mir_privacy; 
+//typedef enum   mir_privacy              mir_privacy;
 typedef struct mir_node                 mir_node;
 typedef struct mir_zone                 mir_zone;
 typedef struct mir_rtgroup              mir_rtgroup;

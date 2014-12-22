@@ -38,13 +38,13 @@ typedef enum am_method {
 
     audiomgr_implicit_connection,
     audiomgr_implicit_connections,
-    
+
     audiomgr_connect,
     audiomgr_connect_ack,
-    
+
     audiomgr_disconnect,
     audiomgr_disconnect_ack,
-    
+
     audiomgr_setsinkvol_ack,
     audiomgr_setsrcvol_ack,
     audiomgr_sinkvoltick_ack,

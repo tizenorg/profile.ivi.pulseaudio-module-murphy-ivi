@@ -186,7 +186,7 @@ void pa_classify_node_by_card(mir_node        *node,
         case mir_front_speakers:
             node->privacy = mir_public;
             break;
-            
+
             /* private */
         case mir_phone:
         case mir_wired_headset:
@@ -197,7 +197,7 @@ void pa_classify_node_by_card(mir_node        *node,
         case mir_bluetooth_a2dp:
             node->privacy = mir_private;
             break;
-            
+
             /* unknown */
         case mir_null:
         case mir_jack:
@@ -476,7 +476,7 @@ static int pid2exe(pid_t pid, char *buf, size_t len)
                     p = buf + strlen(buf);
 
                 if ((q = strrchr(buf, '/')))
-                    memmove(buf, q+1, (size_t)(p-q)); 
+                    memmove(buf, q+1, (size_t)(p-q));
 
                 st = 0;
             }
@@ -632,7 +632,7 @@ bool pa_classify_ramping_stream(mir_node *node)
     static bool ramping[mir_application_class_end] = {
         [ mir_player  ] = true,
     };
-    
+
     mir_node_type class;
 
     pa_assert(node);

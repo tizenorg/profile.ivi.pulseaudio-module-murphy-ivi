@@ -181,7 +181,7 @@ pa_muxnode *pa_multiplex_find_by_module(pa_multiplex *multiplex,
                 return mux;
         }
     }
-    
+
     return NULL;
 }
 
@@ -437,7 +437,7 @@ bool pa_multiplex_duplicate_route(pa_core       *core,
                          "sink.%u", sinp->index, sink->index);
         }
     }
-        
+
     return false;
 }
 
@@ -475,7 +475,7 @@ int pa_multiplex_print(pa_muxnode *mux, char *buf, int len)
         p += snprintf(p, (size_t)(e-p), "module %u, sink %u, default stream %u",
                       mux->module_index, mux->sink_index,mux->defstream_index);
     }
-    
+
     return p - buf;
 }
 
@@ -511,4 +511,3 @@ static void copy_media_role_property(pa_sink *sink, pa_sink_input *to)
  * End:
  *
  */
-

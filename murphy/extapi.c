@@ -341,4 +341,3 @@ static void *conn_hash(uint32_t connid)
  * End:
  *
  */
-

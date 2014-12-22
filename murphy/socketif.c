@@ -45,7 +45,7 @@ pa_routerif *pa_routerif_init(struct userdata *u,
 {
     pa_module      *m = u->module;
     pa_routerif    *routerif = NULL;
-    
+
     routerif = pa_xnew0(pa_routerif, 1);
     routerif->sock = -1;
 
@@ -195,9 +195,9 @@ static const char *method_str(am_method m)
     case audiomgr_implicit_connection:  return "register_implicit_connection";
     case audiomgr_implicit_connections: return "replace_implicit_connections";
     case audiomgr_connect:              return "connect";
-    case audiomgr_connect_ack:          return "connect_ack";   
+    case audiomgr_connect_ack:          return "connect_ack";
     case audiomgr_disconnect:           return "disconnect";
-    case audiomgr_disconnect_ack:       return "disconnect_ack";    
+    case audiomgr_disconnect_ack:       return "disconnect_ack";
     case audiomgr_setsinkvol_ack:       return "setsinkvol_ack";
     case audiomgr_setsrcvol_ack:        return "setsrcvol_ack";
     case audiomgr_sinkvoltick_ack:      return "sinkvoltick_ack";
@@ -214,4 +214,3 @@ static const char *method_str(am_method m)
  * End:
  *
  */
-

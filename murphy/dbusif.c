@@ -116,7 +116,7 @@ struct argctx {                 /* context arguments */
 
 static void free_routerif(pa_routerif *,struct userdata *);
 
-static bool send_message_with_reply(struct userdata *, 
+static bool send_message_with_reply(struct userdata *,
                                          DBusConnection *, DBusMessage *,
                                          pending_cb_t, void *);
 
@@ -167,7 +167,7 @@ pa_routerif *pa_routerif_init(struct userdata *u,
     const char     *amcpath;
     char            admarule[512];
     int             result;
-    
+
     if (!dbustype || !strcasecmp(dbustype, "session")) {
         dbustype = "session";
         type = DBUS_BUS_SESSION;
@@ -180,7 +180,7 @@ pa_routerif *pa_routerif_init(struct userdata *u,
         pa_log("invalid dbus type '%s'", dbustype);
         return NULL;
     }
-    
+
     routerif = pa_xnew0(pa_routerif, 1);
     PA_LLIST_HEAD_INIT(struct pending, routerif->pendlist);
 
@@ -204,10 +204,10 @@ pa_routerif *pa_routerif_init(struct userdata *u,
                __FILE__, error.name, error.message);
         goto fail;
     }
-    
+
     pa_log_info("%s: now owner of '%s' D-Bus name on %s bus",
                 __FILE__, PULSE_DBUS_NAME, dbustype);
- 
+
     if (!dbus_connection_add_filter(dbusconn, filter,u, NULL)) {
         pa_log("%s: failed to add filter function", __FILE__);
         goto fail;
@@ -377,7 +377,7 @@ static void handle_admin_message(struct userdata *u, DBusMessage *msg)
                 unregister_from_audiomgr(u);
 
             routerif->amisup = 0;
-        } 
+        }
     }
 }
 
@@ -512,15 +512,15 @@ static DBusHandlerResult audiomgr_method_handler(DBusConnection *conn,
             }
         }
 
-        errcod = method ? E_OK : E_NOT_POSSIBLE; 
+        errcod = method ? E_OK : E_NOT_POSSIBLE;
         reply  = dbus_message_new_method_return(msg);
 
         // dbus_message_set_reply_serial(reply, serial);
-                
+
         success = dbus_message_append_args(reply,
                                            DBUS_TYPE_INT16, &errcod,
                                            DBUS_TYPE_INVALID);
-        
+
         if (!success || !dbus_connection_send(conn, reply, NULL))
             pa_log("%s: failed to reply '%s'", __FILE__, name);
         else
@@ -532,7 +532,7 @@ static DBusHandlerResult audiomgr_method_handler(DBusConnection *conn,
             d->method(u, msg);
         else
             pa_log_info("%s: unsupported '%s' method ignored", __FILE__, name);
-                
+
         return DBUS_HANDLER_RESULT_HANDLED;
     }
 
@@ -681,7 +681,7 @@ bool pa_routerif_domain_complete(struct userdata *u, uint16_t domain)
     pa_assert(u);
     pa_assert_se((routerif = u->routerif));
     pa_assert_se((conn = pa_dbus_connection_get(routerif->conn)));
-    
+
 
     pa_log_debug("%s: domain %u AudioManager %s", __FUNCTION__,
                  domain, AUDIOMGR_DOMAIN_COMPLETE);
@@ -862,7 +862,7 @@ static bool build_connection_formats(DBusMessageIter *mit,
 #define CONT_APPEND(t,v) dbus_message_iter_append_basic(&ait, t, v)
 #define CONT_CLOSE       dbus_message_iter_close_container(mit, &ait)
 
-    if (!CONT_OPEN(DBUS_TYPE_ARRAY, "i")) 
+    if (!CONT_OPEN(DBUS_TYPE_ARRAY, "i"))
         return false;
 
     for (i = 1;  i < 2;  i++) {
@@ -938,7 +938,7 @@ bool pa_routerif_register_node(struct userdata *u,
 
     msg = dbus_message_new_method_call(routerif->amnam, routerif->amrpath,
                                        routerif->amrnam, method);
-    
+
     if (msg == NULL) {
         pa_log("%s: Failed to create D-BUS message to '%s'", __FILE__, method);
         goto getout;
@@ -993,9 +993,9 @@ bool pa_routerif_register_node(struct userdata *u,
           ! build_connection_formats(&cit, rd)                  ||
           ! build_sound_properties(&cit, rd)                    ||
           ! build_notification_properties(&cit, rd)             ||
-          ! build_notification_properties(&cit, rd)             ||  
+          ! build_notification_properties(&cit, rd)             ||
           ! CONT_CLOSE                                          )))
-    {        
+    {
         pa_log("%s: failed to build message for AudioManager '%s'",
                __FILE__, method);
         goto getout;
@@ -1016,7 +1016,7 @@ bool pa_routerif_register_node(struct userdata *u,
         pa_log("%s: Failed to %s", __FILE__, method);
         goto getout;
     }
-    
+
  getout:
     dbus_message_unref(msg);
     return success;
@@ -1090,7 +1090,7 @@ bool pa_routerif_unregister_node(struct userdata *u,
 
     msg = dbus_message_new_method_call(routerif->amnam, routerif->amrpath,
                                        routerif->amrnam, method);
-    
+
     if (msg == NULL) {
         pa_log("%s: Failed to create D-Bus message for '%s'", __FILE__,method);
         goto getout;
@@ -1106,7 +1106,7 @@ bool pa_routerif_unregister_node(struct userdata *u,
         pa_log("%s: Failed to %s", __FILE__, method);
         goto getout;
     }
-    
+
  getout:
     dbus_message_unref(msg);
     return success;
@@ -1207,7 +1207,7 @@ bool pa_routerif_register_implicit_connections(struct userdata *u,
 
     for (i = 0;   i < nconn;   i++) {
         cd = conns + i;
-        
+
         if (! CONT_OPEN   (&ait, DBUS_TYPE_STRUCT, NULL, &sit     ) ||
             ! CONT_APPEND (&sit, DBUS_TYPE_UINT16, &cd->connection) ||
             ! CONT_APPEND (&sit, DBUS_TYPE_UINT16, &cd->source    ) ||
@@ -1224,7 +1224,7 @@ bool pa_routerif_register_implicit_connections(struct userdata *u,
     if (!CONT_CLOSE(&mit, &ait)) {
         pa_log("%s: failed to close array iterator for %s", __FILE__, method);
         goto getout;
-    } 
+    }
 
 #undef CONT_CLOSE
 #undef CONT_APPEND
@@ -1365,9 +1365,9 @@ static const char *method_str(am_method m)
     case audiomgr_implicit_connection:  return AUDIOMGR_IMPLICIT_CONNECTION;
     case audiomgr_implicit_connections: return AUDIOMGR_IMPLICIT_CONNECTIONS;
     case audiomgr_connect:              return AUDIOMGR_CONNECT;
-    case audiomgr_connect_ack:          return AUDIOMGR_CONNECT_ACK;   
+    case audiomgr_connect_ack:          return AUDIOMGR_CONNECT_ACK;
     case audiomgr_disconnect:           return AUDIOMGR_DISCONNECT;
-    case audiomgr_disconnect_ack:       return AUDIOMGR_DISCONNECT_ACK;    
+    case audiomgr_disconnect_ack:       return AUDIOMGR_DISCONNECT_ACK;
     case audiomgr_setsinkvol_ack:       return AUDIOMGR_SETSINKVOL_ACK;
     case audiomgr_setsrcvol_ack:        return AUDIOMGR_SETSRCVOL_ACK;
     case audiomgr_sinkvoltick_ack:      return AUDIOMGR_SINKVOLTICK_ACK;
@@ -1384,4 +1384,3 @@ static const char *method_str(am_method m)
  * End:
  *
  */
-

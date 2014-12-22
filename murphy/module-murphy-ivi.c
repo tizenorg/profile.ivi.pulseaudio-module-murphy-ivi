@@ -101,8 +101,8 @@ PA_MODULE_USAGE(
     "dbus_if_name=<policy dbus interface> "
     "dbus_murphy_path=<policy daemon's path> "
     "dbus_murphy_name=<policy daemon's name> "
-    "dbus_audiomgr_path=<GenIVI audio manager's path> " 
-    "dbus_audiomgr_name=<GenIVI audio manager's name> " 
+    "dbus_audiomgr_path=<GenIVI audio manager's path> "
+    "dbus_audiomgr_name=<GenIVI audio manager's name> "
 #else
     "audiomgr_socktype=<tcp|unix> "
     "audiomgr_address=<audiomgr socket address> "
@@ -310,5 +310,3 @@ void pa__done(pa_module *m) {
  * End:
  *
  */
-
-

@@ -66,7 +66,7 @@ pa_router *pa_router_init(struct userdata *u)
 {
     size_t num_classes = mir_application_class_end;
     pa_router *router = pa_xnew0(pa_router, 1);
-    
+
     router->rtgroups.input  = pa_hashmap_new(pa_idxset_string_hash_func,
                                             pa_idxset_string_compare_func);
     router->rtgroups.output = pa_hashmap_new(pa_idxset_string_hash_func,
@@ -78,7 +78,7 @@ pa_router *pa_router_init(struct userdata *u)
 
     MIR_DLIST_INIT(router->nodlist);
     MIR_DLIST_INIT(router->connlist);
-    
+
     return router;
 }
 
@@ -297,7 +297,7 @@ void mir_router_register_node(struct userdata *u, mir_node *node)
     pa_assert(u);
     pa_assert(node);
     pa_assert_se((router = u->router));
-    
+
     if (node->direction == mir_output) {
         if (node->implement == mir_device) {
             PA_HASHMAP_FOREACH(rtg, router->rtgroups.output, state) {
@@ -307,7 +307,7 @@ void mir_router_register_node(struct userdata *u, mir_node *node)
         return;
     }
 
-    
+
     if (node->direction == mir_input) {
 #if 0
         if (node->implement == mir_device) &&
@@ -325,7 +325,7 @@ void mir_router_register_node(struct userdata *u, mir_node *node)
         }
 
         priority = node_priority(u, node);
-            
+
         MIR_DLIST_FOR_EACH(mir_node, rtprilist, before, &router->nodlist) {
             if (priority < node_priority(u, before)) {
                 MIR_DLIST_INSERT_BEFORE(mir_node, rtprilist, node,
@@ -333,7 +333,7 @@ void mir_router_register_node(struct userdata *u, mir_node *node)
                 return;
             }
         }
-            
+
         MIR_DLIST_APPEND(mir_node, rtprilist, node, &router->nodlist);
 
         return;
@@ -344,7 +344,7 @@ void mir_router_unregister_node(struct userdata *u, mir_node *node)
 {
     pa_router *router;
     mir_rtentry *rte, *n;
-    
+
     pa_assert(u);
     pa_assert(node);
     pa_assert_se((router = u->router));
@@ -374,7 +374,7 @@ mir_connection *mir_router_add_explicit_route(struct userdata *u,
     conn->amid = amid;
     conn->from = from->index;
     conn->to = to->index;
-    
+
     MIR_DLIST_APPEND(mir_connection, link, conn, &router->connlist);
 
     mir_router_make_routing(u);
@@ -488,7 +488,7 @@ mir_node *mir_router_make_prerouting(struct userdata *u, mir_node *data)
 
         if ((end = find_default_route(u, start, stamp)))
             implement_default_route(u, start, end, stamp);
-    }    
+    }
 
     if (!done && (target = find_default_route(u, data, stamp)))
         implement_preroute(u, data, target, stamp);
@@ -536,7 +536,7 @@ void mir_router_make_routing(struct userdata *u)
 
         if ((end = find_default_route(u, start, stamp)))
             implement_default_route(u, start, end, stamp);
-    }    
+    }
 
     pa_audiomgr_send_default_routes(u);
 
@@ -568,7 +568,7 @@ bool mir_router_default_accept(struct userdata *u, mir_rtgroup *rtg,
         accept = false;
     else if (class == mir_jack || class == mir_hdmi) {
         pa_assert_se((core = u->core));
-            
+
         if (node->direction == mir_input) {
             source = pa_idxset_get_by_index(core->sources,node->paidx);
             pl = source ? source->proplist : NULL;
@@ -586,7 +586,7 @@ bool mir_router_default_accept(struct userdata *u, mir_rtgroup *rtg,
         accept = (class >= mir_device_class_begin &&
                   class < mir_device_class_end);
     }
-        
+
     return accept;
 }
 
@@ -722,7 +722,7 @@ static void rtgroup_update_module_property(struct userdata *u,
 
     if (!ret)
         value[1] = 0;
-    
+
     pa_proplist_sets(module->proplist, key, value+1); /* skip ' '@beginning */
 }
 
@@ -797,7 +797,7 @@ static void make_explicit_routes(struct userdata *u, uint32_t stamp)
     MIR_DLIST_FOR_EACH_BACKWARD(mir_connection,link, conn, &router->connlist) {
         if (conn->blocked)
             continue;
-        
+
         if (!(from = mir_node_find_by_index(u, conn->from)) ||
             !(to   = mir_node_find_by_index(u, conn->to))     )
         {
@@ -842,7 +842,7 @@ static mir_node *find_default_route(struct userdata *u,
                      start->amname, start->zone);
         return NULL;
     }
-    
+
     switch (start->direction) {
     case mir_input:     cmap = router->classmap.output;     break;
     case mir_output:    cmap = router->classmap.input;      break;
@@ -855,17 +855,17 @@ static mir_node *find_default_route(struct userdata *u,
                      start->amname, mir_node_type_str(class));
         return NULL;
     }
-    
+
     pa_log_debug("using '%s' router group when routing '%s'",
                  rtg->name, start->amname);
 
-        
+
     MIR_DLIST_FOR_EACH_BACKWARD(mir_rtentry, link, rte, &rtg->entries) {
         if (!(end = rte->node)) {
             pa_log("   node was null in mir_rtentry");
             continue;
         }
-        
+
         if (end->ignore) {
             pa_log_debug("   '%s' ignored. Skipping...",end->amname);
             continue;
@@ -895,14 +895,14 @@ static mir_node *find_default_route(struct userdata *u,
                 continue;
             }
         }
-        
+
         pa_log_debug("routing '%s' => '%s'", start->amname, end->amname);
 
         pa_audiomgr_add_default_route(u, start, end);
-        
+
         return end;
     }
-    
+
     pa_log_debug("could not find route for '%s'", start->amname);
 
     return NULL;
@@ -1013,10 +1013,10 @@ static int print_routing_table(pa_hashmap  *table,
 
                 if (p >= e) break;
                 p += snprintf(p, (size_t)(e-p), "   %s:", rtg->name);
-                
+
                 if (p >= e) break;
                 p += rtgroup_print(rtg, p, e-p);
-                
+
                 if (p >= e) break;
                 p += snprintf(p, (size_t)(e-p), "\n");
             }

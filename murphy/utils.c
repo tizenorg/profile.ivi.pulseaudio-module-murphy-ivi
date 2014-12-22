@@ -405,7 +405,7 @@ pa_nodeset_resdef *pa_utils_get_resource_properties(pa_proplist *pl,
                                      &rd->flags.rset);
     success |= get_unsigned_property(pl, PA_PROP_RESOURCE_AUDIO_FLAGS,
                                      &rd->flags.audio);
-    
+
     return success ? rd : NULL;
 }
 
@@ -502,7 +502,7 @@ mir_node *pa_utils_get_node_from_port(struct userdata *u,
 
                 if (value[0] && !e[0])
                     node = mir_node_find_by_index(u, index);
-                
+
                 if (node)
                     return node;
 
@@ -645,5 +645,3 @@ uint32_t pa_utils_get_stamp(void)
  * End:
  *
  */
-
-

@@ -65,7 +65,7 @@ void pa_zoneset_done(struct userdata *u)
         pa_hashmap_free(zs->zones.hash);
 
         free(zs);
-    }    
+    }
 }
 
 int pa_zoneset_add_zone(struct userdata *u, const char *name, uint32_t index)
@@ -140,7 +140,7 @@ void pa_zoneset_update_module_property(struct userdata *u)
     e = (p = buf) + sizeof(buf);
 
     buf[1] = 0;
-    
+
     PA_HASHMAP_FOREACH(zone, zs->zones.hash, state) {
         if (p >= e) break;
         p += snprintf(p, (size_t)(e-p), " '%s'", zone->name);

@@ -44,9 +44,9 @@ static void cstrlink_destroy(struct userdata *, mir_constr_link *);
 pa_constrain *pa_constrain_init(struct userdata *u)
 {
     pa_constrain *constrain = pa_xnew0(pa_constrain, 1);
-    
+
     constrain->defs = pa_hashmap_new(pa_idxset_string_hash_func,
-                                     pa_idxset_string_compare_func);    
+                                     pa_idxset_string_compare_func);
     return constrain;
 }
 
@@ -151,7 +151,7 @@ void mir_constrain_add_node(struct userdata *u,
 
         MIR_DLIST_APPEND(mir_constr_link, link, cl, &cd->nodes);
         MIR_DLIST_APPEND(mir_constr_link, nodchain, cl, &node->constrains);
-        
+
         pa_log_debug("node '%s' added to constrain %s/%s",
                      node->amname, cd->name, cd->key);
     }
@@ -210,7 +210,7 @@ void mir_constrain_apply(struct userdata *u, mir_node *node, uint32_t stamp)
             }
         }
     }
-} 
+}
 
 int mir_constrain_print(mir_node *node, char *buf, int len)
 {

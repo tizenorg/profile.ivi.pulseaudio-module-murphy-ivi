@@ -371,7 +371,7 @@ void pa_audiomgr_unregister_node(struct userdata *u, mir_node *node)
                        "attempted to remove '%s' (%p/%p); "
                        "actually removed '%s' (%p/%p)", __FILE__,
                        node->amname, (void *)key, (void *)node, removed->amname,
-                       (void *)node_hash(removed->direction, removed->amid), 
+                       (void *)node_hash(removed->direction, removed->amid),
                        (void *)removed);
             else
                 pa_log("%s: confused with data structures: node %u (%p)"
@@ -389,7 +389,7 @@ void pa_audiomgr_unregister_node(struct userdata *u, mir_node *node)
 
         if (success) {
             pa_log_debug("sucessfully unregistered node '%s' (%p/%p)"
-                         "from audio manager", node->amname, 
+                         "from audio manager", node->amname,
                          (void *)key, (void *)node);
         }
         else {
