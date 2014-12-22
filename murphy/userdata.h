@@ -32,13 +32,10 @@
 
 #define DIM(a) (sizeof(a)/sizeof((a)[0]))
 
-#ifndef PA_PROP_PROCESS_ENVIRONMENT
-#define PA_PROP_PROCESS_ENVIRONMENT    "application.process.environment"
-#endif
+#define PA_ENV_ZONE                    "AUDIO_ZONE"
 
 #define PA_PROP_ZONES                  "zones"
 #define PA_PROP_ZONE_NAME              "zone.name"
-#define PA_PROP_ENV_ZONE               PA_PROP_PROCESS_ENVIRONMENT ".AUDIO_ZONE"
 #define PA_PROP_ROUTING_CLASS_NAME     "routing.class.name"
 #define PA_PROP_ROUTING_CLASS_ID       "routing.class.id"
 #define PA_PROP_ROUTING_METHOD         "routing.method"
